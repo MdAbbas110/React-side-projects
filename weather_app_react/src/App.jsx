@@ -62,6 +62,28 @@ function App() {
             <p>Wind Speed</p>
           </div>
         </div>
+
+        {/* bottom 2 part of the page */}
+        <div className='bottom2'>
+          <div className='feels'>
+            {data.main ? (
+              <p className='bold'>{data.main.temp_min.toFixed()}℉</p>
+            ) : null}
+            <p>Temp Min</p>
+          </div>
+          <div className='humidity'>
+            {data.main ? (
+              <p className='bold'>{data.main.temp_max.toFixed()}%</p>
+            ) : null}
+            <p>Temp_Max</p>
+          </div>
+          <div className='wind'>
+            {data.wind ? (
+              <p className='bold'>{data.main.pressure}⌁</p>
+            ) : null}
+            <p>Pressure</p>
+          </div>
+        </div>
       </main>
     </section>
   );
