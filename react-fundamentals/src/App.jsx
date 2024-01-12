@@ -1,25 +1,34 @@
-import { useState } from 'react'
-import './App.css'
+import { useEffect, useState } from "react"
 
 function App() {
-  const [title, setTitle] = useState('your number')
+  const [todos, setTodos] = useState([]);
 
-  function changeInfo() {
-    return setTitle('You number ' + Math.floor(Math.random() * 10 + 1) )
-  }
+  useEffect(() => {
+    setInterval(() =>{
+      fetch("https://sum-server.100xdevs.com/todos")
+        .then(async (res) => {
+          const json = await res.json();
+          setTodos(json.todos);
+        })
+    }, 5000)
+  }, [])
 
   return (
-    <>
-      <button onClick={changeInfo}>Click to change</button>
-      <Header props={title}></Header>
-      <Header props='abidi'></Header>
-    </>
+    <div>
+      {todos.map(({title, description, id}) => <Todo key={id} title={title} description={description} />)}
+    </div>
   )
 }
 
-function Header({props}) {
-
-  return <h1>Hi {props}</h1>
+function Todo({title, description}) {
+  return <div>
+    <h2>
+      {title}
+    </h2>
+    <h5>
+      {description}
+    </h5>
+  </div>
 }
 
 export default App
