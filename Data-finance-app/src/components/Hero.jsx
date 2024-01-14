@@ -1,5 +1,6 @@
 import React from 'react';
 import Typed from 'react-typed';
+import Button from './Button';
 
 const Hero = () => {
   return (
@@ -27,9 +28,7 @@ const Hero = () => {
           Monitor your data analytics to increase revenue for BTB, BTC, & SASS
           platforms.
         </p>
-        <button className="bg-[#00df9a] w-[200px] rounded-md text-xl font-medium my-6 mx-auto py-3 text-black">
-          Get Started
-        </button>
+        <Button />
       </div>
     </div>
   );
