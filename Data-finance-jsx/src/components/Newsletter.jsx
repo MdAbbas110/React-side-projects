@@ -1,6 +1,3 @@
-import React from 'react';
-import Button from './Button';
-
 const Newsletter = () => {
   return (
     <div className="w-full py-16 text-white px-4">
@@ -9,7 +6,9 @@ const Newsletter = () => {
           <h1 className="md:text-4xl sm:text-3xl text-2xl font-bold py-2">
             Want tips & tricks to optimize your flow?
           </h1>
-          <p>Sign up to our news letter and stay up to date.</p>
+          <p className="text-sm md:text-lg">
+            Sign up to our news letter and stay up to date.
+          </p>
         </div>
 
         <div className="my-5">
@@ -23,9 +22,11 @@ const Newsletter = () => {
               Notify Me
             </button>
           </div>
-          <p>
+          <p className="text-sm md:text-lg">
             We care both the protection of your data. Read our{' '}
-            <span className="text-[#00df9a]">Privacy Policy.</span>
+            <span className="text-[#00df9a] border-b border-b-white-600">
+              Privacy Policy.
+            </span>
           </p>
         </div>
       </div>
