@@ -28,7 +28,7 @@ const Hero = () => {
           Monitor your data analytics to increase revenue for BTB, BTC, & SASS
           platforms.
         </p>
-        <Button />
+        <Button name="Get Started" />
       </div>
     </div>
   );
