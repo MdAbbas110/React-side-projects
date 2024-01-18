@@ -1,34 +1,35 @@
-import { useEffect, useState } from "react"
+import React, { Suspense } from 'react';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+const Dashboard = React.lazy(() => import('./components/Dashboard'));
+const Landing = React.lazy(() => import('./components/Landing'));
+import AppBar from './components/Appbar';
 
 function App() {
-  const [todos, setTodos] = useState([]);
-
-  useEffect(() => {
-    setInterval(() =>{
-      fetch("https://sum-server.100xdevs.com/todos")
-        .then(async (res) => {
-          const json = await res.json();
-          setTodos(json.todos);
-        })
-    }, 5000)
-  }, [])
-
   return (
-    <div>
-      {todos.map(({title, description, id}) => <Todo key={id} title={title} description={description} />)}
-    </div>
-  )
+    <>
+      <BrowserRouter>
+        <AppBar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Suspense fallback="Loading">
+                <Landing />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <Suspense fallback="Loading">
+                <Dashboard />
+              </Suspense>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 }
 
-function Todo({title, description}) {
-  return <div>
-    <h2>
-      {title}
-    </h2>
-    <h5>
-      {description}
-    </h5>
-  </div>
-}
-
-export default App
+export default App;
