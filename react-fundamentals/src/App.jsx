@@ -1,34 +1,45 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
-const Dashboard = React.lazy(() => import('./components/Dashboard'));
-const Landing = React.lazy(() => import('./components/Landing'));
-import AppBar from './components/Appbar';
+import { useContext, useState } from 'react';
+import { CountContext } from './ContextAPI';
 
 function App() {
+  const [count, setCount] = useState(0);
   return (
     <>
-      <BrowserRouter>
-        <AppBar />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Suspense fallback="Loading">
-                <Landing />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <Suspense fallback="Loading">
-                <Dashboard />
-              </Suspense>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+      {/* Wrap anything that want to use the teleport provider first */}
+      <CountContext.Provider value={count}>
+        <Count setCount={setCount} />
+      </CountContext.Provider>
     </>
+  );
+}
+
+function Count({ setCount }) {
+  return (
+    <div>
+      <CountRenderer />
+      <Button1 setCount={setCount} />
+    </div>
+  );
+}
+
+function CountRenderer() {
+  const count = useContext(CountContext);
+  return <div>Hi value {count}</div>;
+}
+
+function Button1({ setCount }) {
+  const count = useContext(CountContext);
+  return (
+    <div>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        Increase
+      </button>
+      <button onClick={() => setCount(count - 1)}>Decrease </button>
+    </div>
   );
 }
 
