@@ -1,45 +1,41 @@
-import { useContext, useState } from 'react';
-import { CountContext } from './ContextAPI';
+import { RecoilRoot, useRecoilValue } from 'recoil';
+// import { notificationAtom } from './atoms.js';
+import { atom } from 'recoil';
+
+const messageAtom = atom({
+  key: messageAtom,
+  default: 7,
+});
+const jobAtom = atom({
+  key: jobAtom,
+  default: 0,
+});
 
 function App() {
-  const [count, setCount] = useState(0);
   return (
     <>
-      {/* Wrap anything that want to use the teleport provider first */}
-      <CountContext.Provider value={count}>
-        <Count setCount={setCount} />
-      </CountContext.Provider>
+      <RecoilRoot>
+        <MainApp />
+      </RecoilRoot>
     </>
   );
 }
 
-function Count({ setCount }) {
-  return (
-    <div>
-      <CountRenderer />
-      <Button1 setCount={setCount} />
-    </div>
-  );
-}
+function MainApp() {
+  // const networkCount = useRecoilValue(networkAtom);
+  const jobCount = useRecoilValue(jobAtom);
+  const messageCount = useRecoilValue(messageAtom);
+  // const notificationCount = useRecoilValue(notificationAtom);
 
-function CountRenderer() {
-  const count = useContext(CountContext);
-  return <div>Hi value {count}</div>;
-}
-
-function Button1({ setCount }) {
-  const count = useContext(CountContext);
   return (
-    <div>
-      <button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-      >
-        Increase
-      </button>
-      <button onClick={() => setCount(count - 1)}>Decrease </button>
-    </div>
+    <>
+      <button>Home</button>
+      {/* <button>network({networkCount >= 100 ? '99+' : networkCount})</button> */}
+      <button>Jobs({jobCount})</button>
+      <button>Messages ({messageCount})</button>
+      {/* <button>Notification({notificationCount})</button> */}
+      <button>Profile </button>
+    </>
   );
 }
 
